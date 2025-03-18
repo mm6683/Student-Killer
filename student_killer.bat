@@ -10,7 +10,7 @@ color 2
 
 :start
 CLS
-type "%~dp0banner.txt"
+type "%~dp0files\banner.txt"
 echo (1) C.C stopper
 echo (2) C.C remover (WARNING: IT department DOESNT like this.)
 echo (3) Exit
@@ -25,7 +25,7 @@ goto start
 :stopper
 CLS
 set keywords=CIC Classroom.Cloud classroom.cloud student Netsupport NetSupport netsupport
-type "%~dp0banner.txt"
+type "%~dp0files\banner.txt"
 echo Killing processes matching: %keywords%
 for %%K in (%keywords%) do (
     for /f "tokens=1" %%P in ('tasklist /FI "IMAGENAME ne cmd.exe" /NH ^| findstr /I %%K') do (
@@ -42,7 +42,7 @@ goto start
 
 :remover
 CLS
-type "%~dp0banner.txt"
+type "%~dp0files\banner.txt"
 echo Are you sure you want to do this? (y)es / (n)o
 set /p input=.%BS%
 if /I %input% EQU y goto :r1
@@ -54,7 +54,7 @@ goto remover
 
 :r1
 CLS
-type "%~dp0banner.txt"
+type "%~dp0files\banner.txt"
 echo are you really sure? (WARNING: IT department DOESNT like this.) YES / (n)o 
 set /p input=.%BS%
 if /I %input% EQU YES goto :r2
@@ -66,7 +66,7 @@ goto r1
 :r2
 CLS
 set keywords=CIC Classroom.Cloud classroom.cloud student Netsupport NetSupport netsupport
-type "%~dp0banner.txt"
+type "%~dp0files\banner.txt"
 for %%K in (%keywords%) do (
     for /f "tokens=1" %%P in ('tasklist /FI "IMAGENAME ne cmd.exe" /NH ^| findstr /I %%K') do (
         echo Terminating: %%P
@@ -91,4 +91,3 @@ IF EXIST "C:\Program Files (x86)\NetSupport" (
 :exit
 CLS
 exit
-
