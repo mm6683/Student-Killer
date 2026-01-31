@@ -10,22 +10,24 @@ color 2
 
 :start
 CLS
-type "%~dp0files\banner.txt"
+type "%~dp0banner.txt"
 echo (1) C.C stopper
-echo (2) C.C remover (WARNING: IT department DOESNT like this.)
-echo (3) Exit
+echo (2) C.C starter
+echo (3) C.C remover (WARNING: IT department DOESNT like this.)
+echo (4) Exit
 set /p input=.%BS%
 if /I %input% EQU 1 goto :stopper
-if /I %input% EQU 2 goto :remover
-if /I %input% EQU 3 goto :exit
+if /I %input% EQU 2 goto :starter
+if /I %input% EQU 3 goto :remover
+if /I %input% EQU 4 goto :exit
 
 CLS
 goto start
 
 :stopper
 CLS
-set keywords=CIC Classroom.Cloud classroom.cloud student Netsupport NetSupport netsupport
-type "%~dp0files\banner.txt"
+set keywords=CIC Classroom.Cloud classroom.cloud student Netsupport NetSupport netsupport cicStudent
+type "%~dp0banner.txt"
 echo Killing processes matching: %keywords%
 for %%K in (%keywords%) do (
     for /f "tokens=1" %%P in ('tasklist /FI "IMAGENAME ne cmd.exe" /NH ^| findstr /I %%K') do (
@@ -40,9 +42,20 @@ pause
 CLS
 goto start
 
+:starter
+CLS
+type "%~dp0banner.txt"
+echo Starting cicStudent.exe
+cd C:\Program Files (x86)\NetSupport\classroom.cloud
+start cicStudent.exe
+echo started cicStudent.exe
+pause
+CLS
+goto start
+
 :remover
 CLS
-type "%~dp0files\banner.txt"
+type "%~dp0banner.txt"
 echo Are you sure you want to do this? (y)es / (n)o
 set /p input=.%BS%
 if /I %input% EQU y goto :r1
@@ -54,7 +67,7 @@ goto remover
 
 :r1
 CLS
-type "%~dp0files\banner.txt"
+type "%~dp0banner.txt"
 echo are you really sure? (WARNING: IT department DOESNT like this.) YES / (n)o 
 set /p input=.%BS%
 if /I %input% EQU YES goto :r2
@@ -66,7 +79,7 @@ goto r1
 :r2
 CLS
 set keywords=CIC Classroom.Cloud classroom.cloud student Netsupport NetSupport netsupport
-type "%~dp0files\banner.txt"
+type "%~dp0banner.txt"
 for %%K in (%keywords%) do (
     for /f "tokens=1" %%P in ('tasklist /FI "IMAGENAME ne cmd.exe" /NH ^| findstr /I %%K') do (
         echo Terminating: %%P
@@ -91,3 +104,4 @@ IF EXIST "C:\Program Files (x86)\NetSupport" (
 :exit
 CLS
 exit
+
